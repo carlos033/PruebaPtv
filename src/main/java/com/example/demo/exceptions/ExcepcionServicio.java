@@ -6,17 +6,17 @@
 package com.example.demo.exceptions;
 
 /**
- *
+ * Clase para mostrar las posibles excepciones de los metodos
  * @author ck
  */
 public class ExcepcionServicio extends Exception {
-
-    /**
-     *
-     */
+  
     private static final long serialVersionUID = 3L;
-
+/**
+ *  Muestra el mensaje en caso de ocurrruna excepcion
+ * @param msg 
+ */
     public ExcepcionServicio(String msg) {
-        super("Ha ocurrido una excepcion en el servicio: " + msg);
+        super("Ha ocurrido una excepcion: " + msg);
     }
 }
