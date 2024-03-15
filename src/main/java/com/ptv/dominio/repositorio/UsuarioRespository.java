@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.repositorio;
+package com.ptv.dominio.repositorio;
 
-import com.example.demo.modelos.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.ptv.infraestructura.entidad.Usuario;
 
 /**
  * Repositorio que extiende de JPA

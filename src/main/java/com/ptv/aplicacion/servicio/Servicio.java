@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.serviciosI;
+package com.ptv.aplicacion.servicio;
 
-import com.example.demo.dto.Registro;
-import com.example.demo.exceptions.ExcepcionServicio;
-import com.example.demo.modelos.Usuario;
 import com.itextpdf.text.Image;
+import com.ptv.aplicacion.adapter.Registro;
+import com.ptv.dominio.excepcion.ExcepcionServicio;
+import com.ptv.infraestructura.entidad.Usuario;
 
 /**
  *
  * @author ck
  */
-public interface ServiciosI {
+public interface Servicio {
 
     public void insert(Usuario usuario) throws ExcepcionServicio;
 
