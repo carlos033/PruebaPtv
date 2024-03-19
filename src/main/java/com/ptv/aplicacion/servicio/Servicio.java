@@ -1,29 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ptv.aplicacion.servicio;
 
-import com.itextpdf.text.Image;
-import com.ptv.aplicacion.adapter.Registro;
-import com.ptv.dominio.excepcion.ExcepcionServicio;
+import java.io.IOException;
+import com.itextpdf.layout.element.Image;
+import com.ptv.aplicacion.dto.Registro;
+import com.ptv.dominio.excepcion.DatosNoValidos;
 import com.ptv.infraestructura.entidad.Usuario;
+import jakarta.mail.MessagingException;
 
-/**
- *
- * @author ck
- */
-public interface Servicio {
+public interface Servicio{
 
-    public void insert(Usuario usuario) throws ExcepcionServicio;
+	public void insert(Usuario usuario) throws DatosNoValidos;
 
-    public Registro obtenerDatos(String codigoTecnico, String dni) throws ExcepcionServicio;
+	public Registro obtenerDatos(String codigoTecnico, String dni) throws Exception;
 
-    public void envioEmail(String email);
+	public void envioEmail(String email) throws MessagingException;
 
-    public void crearPDF(String nombre, String email, String strImagen) throws ExcepcionServicio;
+	public void crearPDF(String nombre, String email, String strImagen) throws IOException;
 
-    public Image base64ToImagen(String imagen) throws ExcepcionServicio;
+	public Image base64ToImagen(String imagen) throws IOException;
 
 }

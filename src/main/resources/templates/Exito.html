@@ -1,17 +1,46 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Menu de exito en el envio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Email enviado con los datos</h1>
-        <button type="button"><a href="/">LogOu</a></button>
-    </body>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éxito en el envío del correo</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	color: #333;
+}
+
+button {
+	background-color: #007bff;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+	<h1>Email enviado con éxito</h1>
+	<button id="logoutButton">Cerrar sesión</button>
+
+	<script>
+		document.getElementById("logoutButton").addEventListener("click",
+				function() {
+					window.location.href = "/";
+				});
+	</script>
+</body>
 </html>

@@ -1,174 +1,170 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>All Clientes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>All Clientes</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    </head>
-    <style>
-        canvas{ border: 1px solid black; }
-    </style>
-    <script type="text/javascript">
-        function signatureCapture() {
-            var canvas = document.getElementById("newSignature");
-            var context = canvas.getContext("2d");
-            canvas.width = 276;
-            canvas.height = 180;
-            context.fillStyle = "#fff";
-            context.strokeStyle = "#444";
-            context.lineWidth = 1.5;
-            context.lineCap = "round";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            var disableSave = true;
-            var pixels = [];
-            var cpixels = [];
-            var xyLast = {};
-            var xyAddLast = {};
-            var calculate = false;
-            {   //functions
-                function remove_event_listeners() {
-                    canvas.removeEventListener('mousemove', on_mousemove, false);
-                    canvas.removeEventListener('mouseup', on_mouseup, false);
-                    canvas.removeEventListener('touchmove', on_mousemove, false);
-                    canvas.removeEventListener('touchend', on_mouseup, false);
-                    document.body.removeEventListener('mouseup', on_mouseup, false);
-                    document.body.removeEventListener('touchend', on_mouseup, false);
-                }
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 20px;
+	padding: 20px;
+	background-color: #f9f9f9;
+}
 
-                function get_coords(e) {
-                    var x, y;
+.container {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-                    if (e.changedTouches && e.changedTouches[0]) {
-                        var offsety = canvas.offsetTop || 0;
-                        var offsetx = canvas.offsetLeft || 0;
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+}
 
-                        x = e.changedTouches[0].pageX - offsetx;
-                        y = e.changedTouches[0].pageY - offsety;
-                    } else if (e.layerX || 0 == e.layerX) {
-                        x = e.layerX;
-                        y = e.layerY;
-                    } else if (e.offsetX || 0 == e.offsetX) {
-                        x = e.offsetX;
-                        y = e.offsetY;
-                    }
+canvas {
+	border: 2px solid #333;
+	margin-bottom: 20px;
+	cursor: crosshair;
+}
 
-                    return {
-                        x: x, y: y
-                    };
-                }
-                ;
-                function on_mousedown(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    canvas.addEventListener('mouseup', on_mouseup, false);
-                    canvas.addEventListener('mousemove', on_mousemove, false);
-                    canvas.addEventListener('touchend', on_mouseup, false);
-                    canvas.addEventListener('touchmove', on_mousemove, false);
-                    document.body.addEventListener('mouseup', on_mouseup, false);
-                    document.body.addEventListener('touchend', on_mouseup, false);
-                    empty = false;
-                    var xy = get_coords(e);
-                    context.beginPath();
-                    pixels.push('moveStart');
-                    context.moveTo(xy.x, xy.y);
-                    pixels.push(xy.x, xy.y);
-                    xyLast = xy;
-                }
-                ;
-                function on_mousemove(e, finish) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    var xy = get_coords(e);
-                    var xyAdd = {
-                        x: (xyLast.x + xy.x) / 2,
-                        y: (xyLast.y + xy.y) / 2
-                    };
-                    if (calculate) {
-                        var xLast = (xyAddLast.x + xyLast.x + xyAdd.x) / 3;
-                        var yLast = (xyAddLast.y + xyLast.y + xyAdd.y) / 3;
-                        pixels.push(xLast, yLast);
-                    } else {
-                        calculate = true;
-                    }
-                    context.quadraticCurveTo(xyLast.x, xyLast.y, xyAdd.x, xyAdd.y);
-                    pixels.push(xyAdd.x, xyAdd.y);
-                    context.stroke();
-                    context.beginPath();
-                    context.moveTo(xyAdd.x, xyAdd.y);
-                    xyAddLast = xyAdd;
-                    xyLast = xy;
-                }
-                ;
-                function on_mouseup(e) {
-                    remove_event_listeners();
-                    disableSave = false;
-                    context.stroke();
-                    pixels.push('e');
-                    calculate = false;
-                }
-                ;
-            }
-            canvas.addEventListener('touchstart', on_mousedown, false);
-            canvas.addEventListener('mousedown', on_mousedown, false);
-        }
+.btn-firma {
+	margin-top: 10px;
+	margin-right: 5px;
+	width: 100px; /* Tamaño más pequeño */
+}
 
-        function signatureSave() {
-            var canvas = document.getElementById("newSignature");// save canvas image as data url (png format by default)
-            var dataURL = canvas.toDataURL("image/png");
-            document.getElementById("saveSignature").src = dataURL;
-        }
-        ;
+.btn-eliminar {
+	margin-top: 10px;
+	margin-right: 5px; /* Espaciado derecho */
+	width: 100px; /* Tamaño más pequeño */
+	white-space: normal; /* Para permitir el salto de línea */
+}
 
-        function signatureClear() {
-            var canvas = document.getElementById("newSignature");
-            var context = canvas.getContext("2d");
-            context.clearRect(0, 0, canvas.width, canvas.height);
-        }
+.btn-guardar {
+	width: 100%; /* Para hacer el botón de guardar más grande */
+}
 
-        function guardar() {
-            var canvas = document.getElementById("newSignature");
-            var img = canvas.toDataURL("image/png");
-            document.getElementById("imagen").value = img;
-            document.getElementById("formularioGuardar").submit();
-        }
-    </script>
-    <body onload="init()">
-        <form id="formularioGuardar" method="POST" action="/guardar">
-            <input type="hidden" th:value="${usuario.nombre}" name="nombre">
-            <input type="hidden" th:value="${usuario.email}" name="correo">
-            <input type="hidden" value="" id="imagen" name="imagen">
-            </br>  </br>
-            <h1 class="text-center header">Datos empleado</h1>
-            <div class="container my-2">
-                <div>
-                    <button type="button" onclick="guardar()">Guardar</button>
-                </div>
-                <div class="card-body">
-                    Nombre:<p th:text="${usuario.nombre}"></p>
-                    Email:<p th:text="${usuario.email}"></p>
-                    <div class="contenedor" aling="center">
-                        <h3 aling="center">Firma</h3>
-                        <div class="row"> 
-                            <button type="button" onclick="signatureClear()">Eliminar Firma</button>
-                            <div class="col-md-1" aling="center">
-                                <canvas id="newSignature" aling="center" width="200" height="200" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
-                                <script>signatureCapture();</script><script>signatureCapture();</script>
+.texto-firma {
+	font-weight: bold;
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+</style>
+</head>
+<body onload="signatureCapture()">
+	<div class="container">
+		<h1>Datos empleado</h1>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </body>
+		<div class="row">
+			<div class="col-md-6">
+				<p>
+					<strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span>
+				</p>
+				<p>
+					<strong>Email:</strong> <span th:text="${usuario.email}"></span>
+				</p>
+			</div>
+
+		</div>
+
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="texto-firma">Firme aquí:</p>
+					<canvas id="newSignature" width="300" height="150"
+						style="border: 2px solid #333;"></canvas>
+				</div>
+				<div class="col-md-12">
+					<button type="button" onclick="signatureClear()"
+						class="btn btn-danger btn-firma btn-eliminar">
+						Eliminar<br>Firma
+					</button>
+				</div>
+				<div class="col-md-12 text-right">
+					<button type="button" onclick="guardar()"
+						class="btn btn-primary btn-firma btn-guardar">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<img id="saveSignature" style="display: none;">
+
+	<form id="formularioGuardar" method="POST" action="/guardar">
+		<input type="hidden" th:value="${usuario.nombre}" name="nombre">
+		<input type="hidden" th:value="${usuario.email}" name="correo">
+		<input type="hidden" value="" id="imagen" name="imagen">
+	</form>
+
+	<script>
+		function signatureCapture() {
+			var canvas = document.getElementById("newSignature");
+			var context = canvas.getContext("2d");
+			canvas.width = 300;
+			canvas.height = 150;
+			context.strokeStyle = "#000"; // Color de la línea
+			context.lineWidth = 2; // Ancho de la línea
+			context.lineCap = "round"; // Extremo de la línea redondeado
+			context.lineJoin = "round"; // Unión de las líneas redondeada
+			context.fillStyle = "rgba(255, 255, 255, 0)"; // Color de fondo transparente
+			context.fillRect(0, 0, canvas.width, canvas.height); // Llenar el canvas con color transparente
+
+			var drawing = false;
+			var prevX = 0;
+			var prevY = 0;
+
+			canvas.addEventListener("mousemove", function(e) {
+				if (drawing) {
+					var rect = canvas.getBoundingClientRect();
+					var currX = e.clientX - rect.left;
+					var currY = e.clientY - rect.top;
+
+					context.beginPath();
+					context.moveTo(prevX, prevY);
+					context.lineTo(currX, currY);
+					context.stroke();
+
+					prevX = currX;
+					prevY = currY;
+				}
+			});
+			canvas.addEventListener("mousedown", function(e) {
+				drawing = true;
+				var rect = canvas.getBoundingClientRect();
+				prevX = e.clientX - rect.left;
+				prevY = e.clientY - rect.top;
+			});
+			canvas.addEventListener("mouseup", function() {
+				drawing = false;
+			});
+
+			canvas.addEventListener("mouseout", function() {
+				drawing = false;
+			});
+		}
+
+		function signatureClear() {
+			var canvas = document.getElementById("newSignature");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			canvas.setAttribute("data-empty", "true");
+		}
+
+		function guardar() {
+			var canvas = document.getElementById("newSignature");
+			var img = canvas.toDataURL("image/png");
+			document.getElementById("imagen").value = img;
+			document.getElementById("formularioGuardar").submit();
+		}
+	</script>
+</body>
 </html>
+
