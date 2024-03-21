@@ -1,0 +1,3 @@
+databaseChangeLog:
+-  include:
+      file: classpath:db/changelog/parameters/changelog01.yml

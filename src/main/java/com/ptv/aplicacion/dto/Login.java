@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Login implements Serializable{
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 1L;
 	private String dNI;
 	private String codTecnico;
 }

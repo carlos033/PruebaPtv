@@ -1,0 +1,37 @@
+databaseChangeLog:
+-  changeSet:
+      id: 1
+      author: Carlos Diaz
+      preConditions:
+         onFail: MARK_RAN
+         not:
+            tableExists:
+               tableName: Usuario
+      changes:
+      -  createTable:
+            tableName: Usuario
+            columns:
+            -  column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     nullable: false
+            -  column:
+                  name: nombre
+                  type: varchar(255)
+                  constraints:
+                     unique: false
+                     nullable: false
+            -  column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                     unique: true
+                     nullable: true
+            -  column:
+                  name: firma
+                  type: BLOB
+                  constraints:
+                     nullable: false

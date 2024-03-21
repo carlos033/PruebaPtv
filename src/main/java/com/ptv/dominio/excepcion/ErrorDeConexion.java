@@ -7,13 +7,13 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ErrorDeConexion extends InternalError{
+public class ErrorDeConexion extends RuntimeException{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4L;
 	private final int code;
 
-	public ErrorDeConexion(int codigoError, Throwable throwable) {
-		super(throwable);
+	public ErrorDeConexion(int codigoError, String string) {
+		super(string);
 		this.code = codigoError;
 	}
 }
